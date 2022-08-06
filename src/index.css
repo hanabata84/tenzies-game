@@ -65,6 +65,79 @@ main {
   border: none;
   border-radius: 3.81277px;
   cursor: pointer;
+  padding: 4px;
+}
+
+.first-face {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.second-face {
+  display: flex;
+  justify-content: space-between;
+}
+
+.second-face .dot:nth-of-type(2) {
+  align-self: flex-end;
+}
+
+.second-face .dot:nth-of-type(3) {
+  align-self: flex-end;
+}
+
+.third-face {
+  display: flex;
+  justify-content: space-between;
+}
+
+.third-face .dot:nth-of-type(3) {
+  align-self: flex-end;
+}
+
+.third-face .dot:nth-of-type(2) {
+  align-self: center;
+}
+
+.third-face .dot:nth-of-type(1) {
+  align-self: flex-start;
+}
+
+.fourth-face {
+  display: flex;
+  justify-content: space-between;
+}
+
+.fourth-face .column {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+}
+
+.fifth-face {
+  display: flex;
+  justify-content: space-between;
+}
+
+.fifth-face .column {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+}
+
+.fifth-face .column:nth-of-type(2) {
+  justify-content: center;
+}
+
+.dot {
+  display: block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: #2B283A;
 }
 
 .roll {
