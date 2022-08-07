@@ -162,3 +162,46 @@ main {
 .roll:active {
   box-shadow: inset 5px 5px 10px -3px rgba(59, 56, 77, 0.7);
 }
+
+.modal {
+  position: fixed;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-content {
+  width: 358px;
+  background: #F5F5F5;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-header,
+.modal-footer {
+  padding: 20px;
+}
+
+.modal-body p {
+  padding: 10px;
+  color: #2B283A;
+  font-family: 'Karla';
+  font-weight: 500;
+  font-size: 20px;
+}
+
+.modal-title {
+  color: #2B283A;
+  font-weight: 800;
+  font-size: 50px;
+  font-family: 'Karla';
+}
