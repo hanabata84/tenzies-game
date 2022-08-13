@@ -9,7 +9,7 @@ function Modal(props) {
                 </div>
                 <div className='modal-body'>
                     <p>No. of Rolls: {props.rollCount}</p>
-                    <p>Time</p>
+                    <p>Time: {props.timeStr}</p>
                 </div>
                 <div className='modal-footer'>
                     <button className='roll' onClick={props.newGame}>New Game</button>

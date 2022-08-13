@@ -1,4 +1,4 @@
-import React from "react";
+import { useState, useEffect } from "react";
 import Dice from "./components/Dice";
 import { nanoid } from 'nanoid';
 import Confetti from 'react-confetti'
@@ -6,20 +6,49 @@ import Modal from "./components/Modal";
 
 function App() {
 
-  const [diceState, setDiceState] = React.useState(allNewDice())
-  const [tenzies, setTenzies] = React.useState(false)
-  const [rollCount, setRollCount] = React.useState(0)
+  const [diceState, setDiceState] = useState(allNewDice())
+  const [tenzies, setTenzies] = useState(false)
+  const [rollCount, setRollCount] = useState(0)
+  const [isActive, setIsActive] = useState(true)
+  const [isPaused, setIsPaused] = useState(false)
+  const [time, setTime] = useState(0)
 
-  React.useEffect(() => {
+  useEffect(() => {
+    let interval = null
+
+    if (isActive && isPaused === false) {
+      interval = setInterval(() => {
+        setTime((time) => time + 10)
+      }, 10)
+    } else {
+      clearInterval(interval)
+    }
+    return () => {
+      clearInterval(interval)
+    }
+
+  }, [isActive, isPaused])
+
+  useEffect(() => {
     const allHeld = diceState.every(die => die.isHeld)
     const firstValue = diceState[0].value
     const allSameValue = diceState.every(die => die.value === firstValue)
 
     if (allHeld && allSameValue) {
       setTenzies(true)
+      setIsPaused(true)
     }
 
   }, [diceState])
+
+  function timer() {
+    let min = ("0" + Math.floor((time / 60000) % 60)).slice(-2)
+    let sec = ("0" + Math.floor((time / 1000) % 60)).slice(-2)
+    let milisec = ("0" + Math.floor((time / 10) % 100)).slice(-2)
+    let timeStr = `${min}:${sec}.${milisec}`
+    return timeStr
+  }
+  timer()
 
   function allNewDice() {
     const newDice = []
@@ -37,19 +66,6 @@ function App() {
     }
   }
 
-  // function rollDice() {
-  //   if (!tenzies) {
-  //     setDiceState(oldDice => oldDice.map(die => {
-  //       return die.isHeld ? die : generateNewDie()
-  //     }))
-  //     setRollCount(prevRollCount => prevRollCount + 1)
-  //   } else {
-  //     setTenzies(false)
-  //     setDiceState(allNewDice)
-  //     setRollCount(0)
-  //   }
-  // }
-
   function rollDice() {
     setDiceState(oldDice => oldDice.map(die => {
       return die.isHeld ? die : generateNewDie()
@@ -61,6 +77,8 @@ function App() {
     setTenzies(false)
     setDiceState(allNewDice)
     setRollCount(0)
+    setIsPaused(false)
+    setTime(0)
   }
 
   function holdDice(id) {
@@ -77,7 +95,7 @@ function App() {
     <div className="App">
       <main>
         {tenzies && <Confetti />}
-        {tenzies && <Modal rollCount={rollCount} newGame={newGame} />}
+        {tenzies && <Modal rollCount={rollCount} newGame={newGame} timeStr={timer()} />}
         <h1>Tenzies</h1>
         <p>Roll until all dice are the same. Click each die to freeze it at its current value between rolls.</p>
         <div className="dice">
